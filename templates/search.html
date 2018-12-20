@@ -1,0 +1,16 @@
+{% for video in videos %}
+<p id="{{ video.id.videoId }}">{{ video.snippet.title }}</p>
+{% endfor %}
+
+<audio controls><source src="" /></audio>
+
+<script>
+  const eles = document.querySelectorAll('p')
+  for (let p of eles) {
+    p.addEventListener('click', e => {
+      document.querySelector('source').src = `/play/${e.target.id}`
+      document.querySelector('audio').load()
+      document.querySelector('audio').play()
+    })
+  }
+</script>
