@@ -1,0 +1,30 @@
+<style>
+  .current {
+    color: red;
+  }
+</style>
+
+{% for one in music %}
+<p>{{ one.song_name }} - {{ one.artist_name }}</p>
+{% endfor %}
+
+<audio controls autoplay><source src="" /></audio>
+
+<script>
+  const eles = document.querySelectorAll('p')
+  for (let p of eles) {
+    p.addEventListener('click', e => {
+      for (let x of document.querySelectorAll('p.current')) {
+        x.classList.remove('current')
+      }
+
+      e.target.classList.add('current')
+      document.querySelector('source').src = `/play?kw=${e.target.innerText}`
+      document.querySelector('audio').load()
+    })
+  }
+
+  document.querySelector('audio').addEventListener('ended', function() {
+    document.querySelector('p.current').nextElementSibling.click()
+  })
+</script>
