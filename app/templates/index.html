@@ -1,0 +1,104 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<header>
+  <div class="center">
+    <span>D Music</span>
+    <form action="/search" method="POST">
+      <input type="text" name="kw" class="keyword">
+    </form>
+  </div>
+</header>
+
+<section>
+  <div class="scroll-content">
+    <div class="list">
+      {% for x in recent %}
+      <a href="/play/{{ x.id }}">
+        <img src="{{ x.thumb }}">
+        <h2>{{ x.title }}</h2>
+        <h4>创建时间：{{ x.date }}</h4>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<div class="container">
+  <div class="columns">
+    <div class="column col">
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block styles %}
+<style>
+  header {
+    color: #fff;
+    border-color: #0c60ee;
+    background-color: #387ef5;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+  }
+
+  header .center {
+    cursor: pointer;
+  }
+
+  .list a {
+    height: 80px;
+    color: black;
+    display: block;
+    padding: 10px 0;
+    position: relative;
+    text-indent: 100px;
+    text-decoration: none;
+    box-sizing: content-box;
+    border-top: 1px solid #ddd;
+  }
+
+  .list a img {
+    max-width: 80px;
+    position: absolute;
+    left: 10px;
+  }
+
+  .list a h2 {
+    font-size: 16px;
+  }
+
+  .list a h4 {
+    font-size: 12px;
+  }
+
+  .keyword {
+    display: none;
+    color: white;
+    width: 300px;
+    border: none;
+    outline: none;
+    padding: 0 8px;
+    background: #ffffff4d;
+  }
+
+</style>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  $(document).click(e => {
+    if ($(e.target).is('.center > span')) {
+      $(e.target).hide()
+      $('.keyword').show().focus()
+    } else {
+      $('.center > span').show()
+      $('.keyword').hide()
+    }
+  })
+
+</script>
+{% endblock %}
