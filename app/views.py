@@ -38,7 +38,7 @@ def play_by_search():
             'published_at': Utils.get_timestamp(first_video['snippet']['publishedAt'])})
         Youtube.download_audio(first_video['id']['videoId'])
 
-        return send_from_directory(directory='caches', filename=first_video['id']['videoId'])
+        return send_from_directory('/caches', filename=first_video['id']['videoId'])
     except Exception:
         abort(404)
 
@@ -46,10 +46,4 @@ def play_by_search():
 @app.route('/play/<video_id>')
 def play(video_id):
     Youtube.download_audio(video_id)
-    return send_from_directory(directory='caches', filename=video_id)
-
-
-@app.route('/test')
-def test():
-    print(Storage.get_recent())
-    return 'res'
+    return send_from_directory(directory='/caches', filename=video_id)

@@ -17,22 +17,14 @@
       <a href="/play/{{ x.id }}">
         <img src="{{ x.thumb }}">
         <h2>{{ x.title }}</h2>
-        <h4>创建时间：{{ x.date }}</h4>
+        <h4>创建时间 {{ x.date | timefstr }}</h4>
       </a>
       {% endfor %}
     </div>
   </div>
 </section>
-
-<div class="container">
-  <div class="columns">
-    <div class="column col">
-
-    </div>
-  </div>
-</div>
-
 {% endblock %}
+
 
 {% block styles %}
 <style>
@@ -50,7 +42,7 @@
   }
 
   .list a {
-    height: 80px;
+    height: 60px;
     color: black;
     display: block;
     padding: 10px 0;
@@ -72,7 +64,9 @@
   }
 
   .list a h4 {
+    color: gray;
     font-size: 12px;
+    margin-top: 5px;
   }
 
   .keyword {
@@ -87,6 +81,7 @@
 
 </style>
 {% endblock %}
+
 
 {% block scripts %}
 <script>

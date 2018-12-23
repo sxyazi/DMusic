@@ -1,15 +1,86 @@
-{% for video in videos %}
-<p id="{{ video.id.videoId }}">{{ video.snippet.title }}</p>
-{% endfor %}
+{% extends "layout.html" %}
 
-<audio controls autoplay loop><source src="" /></audio>
+{% block content %}
+<header>
+  <div class="center">
+    <a href="/">D Music</a>
+  </div>
+</header>
 
-<script>
-  const eles = document.querySelectorAll('p')
-  for (let p of eles) {
-    p.addEventListener('click', e => {
-      document.querySelector('source').src = `/play/${e.target.id}`
-      document.querySelector('audio').load()
-    })
+<section>
+  <div class="scroll-content">
+    <div class="list">
+      {% for video in videos %}
+      <a href="/play/{{ video.id.videoId }}">
+        <img src="{{ video.snippet.thumbnails.default.url }}">
+        <h2>{{ video.snippet.title }}</h2>
+        <h4>发布时间 {{ video.snippet.publishedAt | strftime }}</h4>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+
+  <audio controls autoplay loop>
+    <source src="">
+  </audio>
+</section>
+{% endblock %}
+
+
+{% block styles %}
+<style>
+  header {
+    border-color: #0c60ee;
+    background-color: #387ef5;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
   }
+
+  header .center a {
+    color: #fff;
+    text-decoration: none;
+  }
+
+  .list a {
+    height: 60px;
+    color: black;
+    display: block;
+    padding: 10px 0;
+    position: relative;
+    text-indent: 100px;
+    text-decoration: none;
+    box-sizing: content-box;
+    border-top: 1px solid #ddd;
+  }
+
+  .list a img {
+    max-width: 80px;
+    position: absolute;
+    left: 10px;
+  }
+
+  .list a h2 {
+    font-size: 16px;
+  }
+
+  .list a h4 {
+    color: gray;
+    font-size: 12px;
+    margin-top: 5px;
+  }
+
+</style>
+{% endblock %}
+
+
+{% block scripts %}
+<script>
+  $('.list > a').click(e => {
+    e.preventDefault()
+    document.querySelector('source').src = e.currentTarget.href
+    document.querySelector('audio').load()
+  })
+
 </script>
+{% endblock %}
