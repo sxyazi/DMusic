@@ -11,4 +11,4 @@ class Storage:
 
     @staticmethod
     def get_recent():
-        return [pickle.loads(x) for x in r.zrevrange('dm:recent', 0, 3)]
+        return [pickle.loads(x) for x in r.zrevrange('dm:recent', 0, 100)]
