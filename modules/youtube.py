@@ -15,7 +15,7 @@ class Youtube:
             'format': 'bestaudio/best',
             'extractaudio': True,
             'audioformat': "mp3",
-            'outtmpl': './caches/%(id)s',
+            'outtmpl': '/caches/%(id)s',
             'noplaylist': True, }
 
         with youtube_dl.YoutubeDL(options) as ydl:
