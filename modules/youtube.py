@@ -1,5 +1,6 @@
 import requests
 import youtube_dl
+from exceptions import FileTooLarge
 
 
 class Youtube:
@@ -10,16 +11,22 @@ class Youtube:
         return cls._request_with_key('search', 'part=id,snippet&q=%s' % kw)['items']
 
     @classmethod
-    def download_audio(cls, audio_id):
+    def download_audio(cls, video_id):
         options = {
             'format': 'bestaudio/best',
             'extractaudio': True,
             'audioformat': "mp3",
-            'outtmpl': '/caches/%(id)s',
+            'outtmpl': 'caches/%(id)s',
             'noplaylist': True, }
 
         with youtube_dl.YoutubeDL(options) as ydl:
-            ydl.download(['http://youtu.be/%s' % audio_id])
+            info = ydl.extract_info('http://youtu.be/%s' %
+                                    video_id, download=False)
+            if info['filesize'] > 10 * 1024 * 1024:
+                raise FileTooLarge('文件尺寸不得超过 10M')
+
+            ydl.download(['http://youtu.be/%s' % video_id])
+            return info
 
     @classmethod
     def _request_with_key(cls, url, params=''):

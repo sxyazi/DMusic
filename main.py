@@ -3,4 +3,6 @@ from app import app
 from app import views
 from app import filters
 
-app.run()
+
+if __name__ == "__main__":
+    app.run()

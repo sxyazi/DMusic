@@ -15,7 +15,7 @@
     <div class="list">
       {% for x in recent %}
       <a href="/play/{{ x.id }}">
-        <img src="{{ x.thumb }}">
+        <img src="https://i.ytimg.com/vi/{{ x.id }}/default.jpg">
         <h2>{{ x.title }}</h2>
         <h4>创建时间 {{ x.created_at | timefstr }}</h4>
       </a>
